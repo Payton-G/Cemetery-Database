@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemetery Map - Memorial Park Cemetery</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="assets/images/jrotc-logo.png" alt="Moberly JROTC Logo" class="jrotc-logo">
+                <div class="header-text">
+                    <h1>Memorial Park Cemetery Database</h1>
+                    <p class="subtitle">Cemetery Map</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="search.html" class="nav-link">Search</a>
+            <a href="cemetery-map.html" class="nav-link active">Map</a>
+        </nav>
+
+        <div class="admin-button-container top">
+            <a href="data-entry.html" class="admin-button">🔒 Administrative Access</a>
+        </div>
+
+        <main>
+            <section class="map-section">
+                <div class="map-controls">
+                    <h2>Cemetery Map</h2>
+                    <div class="map-view-tabs">
+                        <button id="grid-view-btn" class="view-tab active">Grid View</button>
+                        <button id="gps-map-btn" class="view-tab">GPS Map</button>
+                    </div>
+                    <div class="map-options">
+                        <input type="text" id="map-search" placeholder="Search by name, section, or plot..." class="filter-input">
+                        <select id="section-filter" class="sort-select">
+                            <option value="">All Sections</option>
+                        </select>
+                        <button id="reset-map" class="btn btn-secondary">Reset View</button>
+                    </div>
+                </div>
+
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color empty"></div>
+                        <span>Empty/No Data</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color has-graves"></div>
+                        <span>Has Graves</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color highlighted"></div>
+                        <span>Search Result</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color veteran"></div>
+                        <span>Veteran Grave</span>
+                    </div>
+                </div>
+
+                <!-- Grid View -->
+                <div id="grid-view" class="map-view">
+                    <div id="map-container" class="map-container">
+                        <!-- Grid map will be generated here -->
+                    </div>
+                </div>
+
+                <!-- GPS Map View -->
+                <div id="gps-map-view" class="map-view" style="display: none;">
+                    <div id="google-map-container" class="google-map-container">
+                        <div id="google-map" style="width: 100%; height: 600px; border-radius: 5px;"></div>
+                        <div id="map-stats" class="map-stats">
+                            <p id="gps-count">Loading GPS data...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="map-info" class="map-info">
+                    <p>Click on a grid cell to view graves in that location</p>
+                </div>
+
+                <div id="selected-location" class="selected-location" style="display: none;">
+                    <h3 id="location-title">Location Details</h3>
+                    <div id="location-graves" class="location-graves">
+                        <!-- Graves in selected location will appear here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Memorial Park Cemetery Restoration Project | JROTC Veterans List<br>Created by C/MSG Payton M. Goodger</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cemetery-map.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+</html>
+

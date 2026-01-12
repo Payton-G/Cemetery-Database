@@ -1,0 +1,97 @@
+================================================================================
+QUICK START: GitHub Pages Setup
+================================================================================
+
+Get your cemetery database online for FREE in 5 steps!
+
+================================================================================
+STEP 1: Create GitHub Account
+================================================================================
+
+1. Go to: https://github.com
+2. Click "Sign up"
+3. Create your account (it's free!)
+
+================================================================================
+STEP 2: Create New Repository
+================================================================================
+
+1. Log into GitHub
+2. Click the "+" icon (top right) → "New repository"
+3. Repository name: cemetery-database (or any name)
+4. Make it PUBLIC (required for free hosting)
+5. Click "Create repository"
+
+================================================================================
+STEP 3: Upload Files
+================================================================================
+
+METHOD A - Web Upload (Easiest):
+1. In your new repository, click "uploading an existing file"
+2. Drag and drop ALL files from your html-database-v2 folder
+3. Click "Commit changes"
+
+METHOD B - GitHub Desktop (Better for updates):
+1. Download: https://desktop.github.com
+2. Install and sign in
+3. File → Add Local Repository
+4. Select your html-database-v2 folder
+5. Click "Publish repository"
+
+================================================================================
+STEP 4: Enable GitHub Pages
+================================================================================
+
+1. In your repository, click "Settings" tab
+2. Click "Pages" in left sidebar
+3. Under "Source":
+   - Branch: main (or master)
+   - Folder: / (root)
+4. Click "Save"
+
+================================================================================
+STEP 5: Get Your URL
+================================================================================
+
+Your website will be at:
+https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/
+
+Example:
+If username is "johndoe" and repo is "cemetery-database"
+URL: https://johndoe.github.io/cemetery-database/
+
+Wait 1-2 minutes, then visit your URL!
+
+================================================================================
+YOUR EMBED CODE
+================================================================================
+
+Once you have your URL, use this in Google Sites:
+
+<iframe 
+    src="https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/index.html" 
+    width="100%" 
+    height="800px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px;">
+</iframe>
+
+Replace YOUR_USERNAME and YOUR_REPO_NAME with your actual values!
+
+================================================================================
+TIPS
+================================================================================
+
+✓ Repository must be PUBLIC for free hosting
+✓ index.html must be in the root folder
+✓ Changes take 1-2 minutes to appear
+✓ Use relative paths in your HTML files (css/style.css, not C:\...)
+
+================================================================================
+NEED HELP?
+================================================================================
+
+Full guide: See GITHUB_PAGES_SETUP.md in the docs folder
+GitHub Docs: https://docs.github.com/en/pages
+
+================================================================================

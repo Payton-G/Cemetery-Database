@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Find a Grave Import</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="assets/images/jrotc-logo.png" alt="Moberly JROTC Logo" class="jrotc-logo">
+                <div class="header-text">
+                    <h1>Memorial Park Cemetery Database</h1>
+                    <p class="subtitle">Find a Grave Import Tool</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <h2>Import Find a Grave Records</h2>
+                <p class="form-help">
+                    This tool will import veteran records from Find a Grave directly into the database.
+                    <br><strong>Note:</strong> This will add records to your database. Duplicates will be skipped.
+                </p>
+
+                <div class="form-group">
+                    <label for="import-entered-by">Entered By <span class="required">*</span></label>
+                    <input type="text" id="import-entered-by" required placeholder="Your name or 'Find a Grave Import'">
+                </div>
+
+                <div class="form-group">
+                    <label>Records to Import</label>
+                    <div style="background: var(--bg-color); padding: 15px; border-radius: 5px; margin-top: 10px;">
+                        <p><strong id="record-count">0</strong> records ready to import</p>
+                        <p style="font-size: 0.9em; color: var(--text-light);">Records from Find a Grave Memorial Park Cemetery veterans list</p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button id="run-import-btn" class="btn btn-primary">Import Records</button>
+                    <button id="check-duplicates-btn" class="btn btn-secondary">Check for Duplicates</button>
+                    <button id="auto-import-btn" class="btn btn-primary" style="background: var(--secondary-color);">Auto-Import All Records</button>
+                </div>
+
+                <div id="import-status" class="import-results" style="display: none; margin-top: 20px;">
+                    <h3>Import Status</h3>
+                    <div id="import-status-content"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Memorial Park Cemetery Restoration Project | JROTC Veterans List<br>Created by C/MSG Payton M. Goodger</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/import-findagrave-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const runImportBtn = document.getElementById('run-import-btn');
+            const checkDuplicatesBtn = document.getElementById('check-duplicates-btn');
+            const importStatus = document.getElementById('import-status');
+            const importStatusContent = document.getElementById('import-status-content');
+            const recordCount = document.getElementById('record-count');
+
+            // Update record count
+            if (typeof findAGraveRecords !== 'undefined') {
+                recordCount.textContent = findAGraveRecords.length;
+            }
+
+            if (runImportBtn) {
+                runImportBtn.addEventListener('click', function() {
+                    const enteredBy = document.getElementById('import-entered-by').value.trim();
+                    if (!enteredBy) {
+                        alert('Please enter your name in "Entered By" field');
+                        return;
+                    }
+
+                    if (typeof importFindAGraveRecords !== 'function') {
+                        alert('Import function not found. Make sure import-findagrave-data.js is loaded.');
+                        return;
+                    }
+
+                    const result = importFindAGraveRecords(enteredBy);
+                    
+                    importStatus.style.display = 'block';
+                    importStatusContent.innerHTML = `
+                        <div class="message success">
+                            <strong>✓ Import Complete!</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>Imported: ${result.imported} new records</li>
+                                <li>Skipped (duplicates): ${result.skipped} records</li>
+                                <li>Total records in database: ${result.total}</li>
+                            </ul>
+                            <p style="margin-top: 15px;"><a href="view-records.html" class="btn btn-primary">View All Records</a></p>
+                        </div>
+                    `;
+                    importStatus.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            if (checkDuplicatesBtn) {
+                checkDuplicatesBtn.addEventListener('click', function() {
+                    const existingRecords = getStoredData();
+                    let duplicates = 0;
+                    let newRecords = 0;
+
+                    if (typeof findAGraveRecords !== 'undefined') {
+                        findAGraveRecords.forEach(record => {
+                            const exists = existingRecords.some(r => 
+                                r.fullName.toLowerCase() === record.name.toLowerCase()
+                            );
+                            if (exists) {
+                                duplicates++;
+                            } else {
+                                newRecords++;
+                            }
+                        });
+                    }
+
+                    importStatus.style.display = 'block';
+                    importStatusContent.innerHTML = `
+                        <div class="message info">
+                            <strong>Duplicate Check Results:</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>New records to import: ${newRecords}</li>
+                                <li>Already in database: ${duplicates}</li>
+                                <li>Total Find a Grave records: ${findAGraveRecords ? findAGraveRecords.length : 0}</li>
+                                <li>Current database records: ${existingRecords.length}</li>
+                            </ul>
+                        </div>
+                    `;
+                    importStatus.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // Auto-import button
+            const autoImportBtn = document.getElementById('auto-import-btn');
+            if (autoImportBtn) {
+                autoImportBtn.addEventListener('click', function() {
+                    const enteredBy = document.getElementById('import-entered-by').value.trim() || 'Find a Grave Auto-Import';
+                    
+                    if (confirm(`This will import all ${findAGraveRecords ? findAGraveRecords.length : 0} Find a Grave records into the database. Continue?`)) {
+                        if (typeof importFindAGraveRecords !== 'function') {
+                            alert('Import function not found. Make sure import-findagrave-data.js is loaded.');
+                            return;
+                        }
+
+                        const result = importFindAGraveRecords(enteredBy);
+                        
+                        importStatus.style.display = 'block';
+                        importStatusContent.innerHTML = `
+                            <div class="message success">
+                                <strong>✓ Auto-Import Complete!</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Imported: ${result.imported} new records</li>
+                                    <li>Skipped (duplicates): ${result.skipped} records</li>
+                                    <li>Total records in database: ${result.total}</li>
+                                </ul>
+                                <p style="margin-top: 15px;"><a href="view-records.html" class="btn btn-primary">View All Records</a></p>
+                            </div>
+                        `;
+                        importStatus.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

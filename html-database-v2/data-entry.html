@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Memorial Park Cemetery</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="assets/images/jrotc-logo.png" alt="Moberly JROTC Logo" class="jrotc-logo">
+                <div class="header-text">
+                    <h1>Memorial Park Cemetery Database</h1>
+                    <p class="subtitle">Administrative Access</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="search.html" class="nav-link">Search</a>
+            <a href="cemetery-map.html" class="nav-link">Map</a>
+            <a href="data-entry.html" class="nav-link active">Admin</a>
+        </nav>
+
+        <main>
+            <!-- Password Protection Screen -->
+            <section id="login-section" class="login-section">
+                <div class="login-box">
+                    <h2>🔒 Administrative Access</h2>
+                    <p class="login-help">This page is password protected. Please enter the password to access administrative functions.</p>
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label for="password-input">Password</label>
+                            <input type="password" id="password-input" name="password" required placeholder="Enter password" autofocus>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Access Admin Panel</button>
+                        </div>
+                        <div id="login-error" class="message error" style="display: none;">
+                            ✗ Incorrect password. Please try again.
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Admin Panel (Hidden until authenticated) -->
+            <section id="admin-section" class="form-section" style="display: none;">
+                <div class="auth-header">
+                    <h2>Administrative Panel</h2>
+                    <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.9em; padding: 8px 16px;">Logout</button>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div class="import-tabs" style="margin-top: 20px;">
+                    <button id="data-entry-tab" class="view-tab active">Data Entry</button>
+                    <button id="import-tab" class="view-tab">Import Records</button>
+                    <button id="management-tab" class="view-tab">Database Management</button>
+                </div>
+
+                <!-- Data Entry Tab -->
+                <div id="data-entry-section" class="admin-tab-section">
+                    <h3>Enter New Record</h3>
+                    <p class="form-help">Fill in all the information you can find. Fields marked with <span class="required">*</span> are required.</p>
+                    
+                    <form id="data-entry-form" class="data-form">
+                        <div class="form-group">
+                            <label for="full-name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="full-name" name="fullName" required placeholder="Enter full name">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="birth-date">Birth Date</label>
+                                <input type="date" id="birth-date" name="birthDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="death-date">Death Date</label>
+                                <input type="date" id="death-date" name="deathDate">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="veteran-status">Veteran Status</label>
+                            <select id="veteran-status" name="veteranStatus">
+                                <option value="">Select...</option>
+                                <option value="yes">Yes - Veteran</option>
+                                <option value="no">No</option>
+                                <option value="unknown">Unknown</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="military-info" style="display: none;">
+                            <label for="branch">Branch of Service</label>
+                            <select id="branch" name="branch">
+                                <option value="">Select branch...</option>
+                                <option value="Army">Army</option>
+                                <option value="Navy">Navy</option>
+                                <option value="Air Force">Air Force</option>
+                                <option value="Marines">Marines</option>
+                                <option value="Coast Guard">Coast Guard</option>
+                                <option value="National Guard">National Guard</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="war-era" style="display: none;">
+                            <label for="war-era-select">War/Era</label>
+                            <select id="war-era-select" name="warEra">
+                                <option value="">Select era...</option>
+                                <option value="Revolutionary War">Revolutionary War</option>
+                                <option value="Civil War">Civil War</option>
+                                <option value="World War I">World War I</option>
+                                <option value="World War II">World War II</option>
+                                <option value="Korean War">Korean War</option>
+                                <option value="Vietnam War">Vietnam War</option>
+                                <option value="Gulf War">Gulf War</option>
+                                <option value="Iraq War">Iraq War</option>
+                                <option value="Afghanistan War">Afghanistan War</option>
+                                <option value="Peacetime">Peacetime Service</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="section">Cemetery Section</label>
+                            <input type="text" id="section" name="section" placeholder="e.g., Section A, Row 5">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="plot-number">Plot Number</label>
+                            <input type="text" id="plot-number" name="plotNumber" placeholder="Plot number if available">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gps-coordinates">GPS Coordinates</label>
+                            <div class="gps-input-group">
+                                <input type="number" id="latitude" name="latitude" step="any" placeholder="Latitude" style="flex: 1;">
+                                <span class="gps-separator">,</span>
+                                <input type="number" id="longitude" name="longitude" step="any" placeholder="Longitude" style="flex: 1;">
+                                <button type="button" id="get-location-btn" class="btn btn-secondary" style="margin-left: 10px; padding: 12px 20px;">📍 Get Current Location</button>
+                            </div>
+                            <small class="gps-help">Click "Get Current Location" to automatically capture GPS coordinates using your device's location</small>
+                            <div id="gps-status" class="gps-status" style="display: none;"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marker-condition">Marker Condition</label>
+                            <select id="marker-condition" name="markerCondition">
+                                <option value="">Select condition...</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                                <option value="poor">Poor - Needs Repair</option>
+                                <option value="missing">Missing</option>
+                                <option value="damaged">Damaged</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marker-type">Marker Type</label>
+                            <select id="marker-type" name="markerType">
+                                <option value="">Select type...</option>
+                                <option value="headstone">Headstone</option>
+                                <option value="flat-marker">Flat Marker</option>
+                                <option value="monument">Monument</option>
+                                <option value="obelisk">Obelisk</option>
+                                <option value="mausoleum">Mausoleum</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inscription">Inscription/Epitaph</label>
+                            <textarea id="inscription" name="inscription" rows="4" placeholder="Any text or inscription on the marker"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Additional Notes</label>
+                            <textarea id="notes" name="notes" rows="3" placeholder="Any additional information or observations"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image-url">Image URL</label>
+                            <input type="url" id="image-url" name="imageUrl" placeholder="URL to memorial image (e.g., from Find a Grave)">
+                            <small style="color: var(--text-light);">Paste the direct image URL from Find a Grave or other source</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="findagrave-url">Find a Grave URL</label>
+                            <input type="url" id="findagrave-url" name="findAGraveUrl" placeholder="https://www.findagrave.com/memorial/...">
+                            <small style="color: var(--text-light);">Link to the Find a Grave memorial page</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entered-by">Entered By <span class="required">*</span></label>
+                            <input type="text" id="entered-by" name="enteredBy" required placeholder="Your name or initials">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entry-date">Entry Date <span class="required">*</span></label>
+                            <input type="date" id="entry-date" name="entryDate" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Save Record</button>
+                            <button type="reset" class="btn btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+
+                    <div id="success-message" class="message success" style="display: none;">
+                        ✓ Record saved successfully!
+                    </div>
+                    <div id="error-message" class="message error" style="display: none;">
+                        ✗ There was an error saving the record. Please try again.
+                    </div>
+                </div>
+
+                <!-- Import Tab -->
+                <div id="import-section" class="admin-tab-section" style="display: none;">
+                    <h3>Import Records</h3>
+                    <p class="form-help">Import multiple records from Find a Grave or CSV files.</p>
+                    
+                    <div class="import-tabs" style="margin-top: 20px;">
+                        <button id="paste-tab" class="view-tab active">Paste Records</button>
+                        <button id="csv-tab" class="view-tab">CSV Import</button>
+                        <button id="json-tab" class="view-tab">Bulk JSON Import</button>
+                        <button id="findagrave-tab" class="view-tab">Find a Grave Import</button>
+                    </div>
+
+                    <!-- Paste Records Sub-tab -->
+                    <div id="paste-subsection" class="import-subsection">
+                        <h4>Paste Records from Find a Grave</h4>
+                        <p><strong>Easy Method:</strong> Just copy and paste the entire list from Find a Grave. The system will automatically extract names, dates, and plot information.</p>
+                        <div class="form-group">
+                            <label for="paste-data">Paste Find a Grave Records Here</label>
+                            <textarea id="paste-data" rows="15" placeholder="Just paste the raw text from Find a Grave page. The system will automatically parse it."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="import-entered-by">Entered By <span class="required">*</span></label>
+                            <input type="text" id="import-entered-by" required placeholder="Your name or initials">
+                        </div>
+                        <button id="parse-paste-btn" class="btn btn-primary">Parse and Import Records</button>
+                    </div>
+
+                    <!-- CSV Import Sub-tab -->
+                    <div id="csv-subsection" class="import-subsection" style="display: none;">
+                        <h4>Import from CSV File</h4>
+                        <p>Upload a CSV file with columns: Full Name, Birth Date, Death Date, Veteran Status, Branch, War/Era, Section, Plot Number, etc.</p>
+                        <div class="form-group">
+                            <label for="csv-file">CSV File</label>
+                            <input type="file" id="csv-file" accept=".csv" />
+                        </div>
+                        <div class="form-group">
+                            <label for="csv-entered-by">Entered By <span class="required">*</span></label>
+                            <input type="text" id="csv-entered-by" required placeholder="Your name or initials">
+                        </div>
+                        <button id="import-csv-btn" class="btn btn-primary">Import CSV File</button>
+                    </div>
+
+                    <!-- JSON Bulk Import Sub-tab -->
+                    <div id="json-subsection" class="import-subsection" style="display: none;">
+                        <h4>Bulk Import from JSON File</h4>
+                        <p><strong>Import all 335 Find a Grave records with images:</strong> Upload a JSON file containing all records with image URLs.</p>
+                        <div class="form-group">
+                            <label for="json-file">JSON File</label>
+                            <input type="file" id="json-file" accept=".json" />
+                            <small style="color: var(--text-light); display: block; margin-top: 5px;">
+                                JSON format: Array of objects with fields: name, birth, death, plot, imageUrl, findAGraveUrl, memorialId
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="json-entered-by">Entered By <span class="required">*</span></label>
+                            <input type="text" id="json-entered-by" required placeholder="Your name or initials">
+                        </div>
+                        <button id="import-json-btn" class="btn btn-primary">Import JSON File</button>
+                        <div style="margin-top: 20px; padding: 15px; background: var(--bg-color); border-radius: 5px;">
+                            <h5>How to Create JSON File:</h5>
+                            <ol style="margin-left: 20px; margin-top: 10px;">
+                                <li>Export data from Find a Grave (or use a scraper tool)</li>
+                                <li>Format as JSON array with fields: name, birth, death, plot, imageUrl, findAGraveUrl</li>
+                                <li>Save as .json file</li>
+                                <li>Upload and import</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Find a Grave Import Sub-tab -->
+                    <div id="findagrave-subsection" class="import-subsection" style="display: none;">
+                        <h4>Import from Find a Grave Database</h4>
+                        <p>Import pre-parsed records from the Find a Grave database.</p>
+                        <div class="form-group">
+                            <label for="fag-entered-by">Entered By <span class="required">*</span></label>
+                            <input type="text" id="fag-entered-by" required placeholder="Your name or initials" value="Find a Grave Import">
+                        </div>
+                        <div class="form-group">
+                            <label>Records Available</label>
+                            <div style="background: var(--bg-color); padding: 15px; border-radius: 5px; margin-top: 10px;">
+                                <p><strong id="fag-record-count">0</strong> records ready to import</p>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button id="run-fag-import-btn" class="btn btn-primary">Import Find a Grave Records</button>
+                            <button id="check-fag-duplicates-btn" class="btn btn-secondary">Check for Duplicates</button>
+                        </div>
+                    </div>
+
+                    <div id="import-results" class="import-results" style="display: none; margin-top: 20px;">
+                        <h4>Import Results</h4>
+                        <div id="import-summary"></div>
+                        <div id="import-errors"></div>
+                    </div>
+                </div>
+
+                <!-- Database Management Tab -->
+                <div id="management-section" class="admin-tab-section" style="display: none;">
+                    <h3>Database Management</h3>
+                    <p class="form-help">Manage and maintain the database. <strong style="color: var(--error-color);">Warning: These actions cannot be undone!</strong></p>
+
+                    <div class="management-stats" style="background: var(--bg-color); padding: 20px; border-radius: 5px; margin: 20px 0;">
+                        <h4>Database Statistics</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                            <div>
+                                <strong id="db-total-records">0</strong>
+                                <p>Total Records</p>
+                            </div>
+                            <div>
+                                <strong id="db-veterans">0</strong>
+                                <p>Veterans</p>
+                            </div>
+                            <div>
+                                <strong id="db-with-gps">0</strong>
+                                <p>Records with GPS</p>
+                            </div>
+                            <div>
+                                <strong id="db-needs-repair">0</strong>
+                                <p>Needs Repair</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="management-actions">
+                        <div class="management-section-block">
+                            <h4>🔍 Duplicate Check</h4>
+                            <p class="section-description">Check for duplicate records in the database.</p>
+                            <button id="check-duplicates-btn" class="btn btn-secondary" style="margin-bottom: 20px;">Check for Duplicates</button>
+                            <div id="duplicates-results" class="duplicates-results" style="display: none;">
+                                <h5>Duplicate Results</h5>
+                                <div id="duplicates-list"></div>
+                            </div>
+                        </div>
+
+                        <div class="management-section-block" style="margin-top: 40px;">
+                            <h4>📝 Record Management</h4>
+                            <p class="section-description">Search, edit, or delete individual records from the database.</p>
+                            <div class="search-container">
+                                <input type="text" id="search-delete-input" placeholder="🔍 Search by name, section, dates, or any field..." class="management-search-input">
+                                <div class="search-hint">Type to search through all records. Results update as you type.</div>
+                            </div>
+                            <div id="delete-records-container" class="management-records-container">
+                                <!-- Records with edit/delete buttons will appear here -->
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top: 30px; border-top: 2px solid var(--border-color); padding-top: 20px;">
+                            <h4>Dangerous Actions</h4>
+                            <p style="color: var(--error-color); font-weight: bold;">⚠️ These actions are permanent and cannot be undone!</p>
+                            
+                            <div style="display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;">
+                                <button id="export-all-btn" class="btn btn-secondary">Export All Data (CSV)</button>
+                                <button id="export-backup-btn" class="btn btn-secondary">Create Backup (JSON)</button>
+                                <button id="clear-all-btn" class="btn" style="background: var(--error-color); color: white;">Clear All Records</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Edit Record Modal -->
+        <div id="edit-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Record</h2>
+                    <button id="close-edit-modal" class="modal-close">&times;</button>
+                </div>
+                <form id="edit-record-form" class="data-form">
+                    <input type="hidden" id="edit-record-id">
+                    
+                    <div class="form-group">
+                        <label for="edit-full-name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="edit-full-name" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-birth-date">Birth Date</label>
+                            <input type="date" id="edit-birth-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-death-date">Death Date</label>
+                            <input type="date" id="edit-death-date">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-veteran-status">Veteran Status</label>
+                        <select id="edit-veteran-status">
+                            <option value="">Select...</option>
+                            <option value="yes">Yes - Veteran</option>
+                            <option value="no">No</option>
+                            <option value="unknown">Unknown</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="edit-military-info" style="display: none;">
+                        <label for="edit-branch">Branch of Service</label>
+                        <select id="edit-branch">
+                            <option value="">Select branch...</option>
+                            <option value="Army">Army</option>
+                            <option value="Navy">Navy</option>
+                            <option value="Air Force">Air Force</option>
+                            <option value="Marines">Marines</option>
+                            <option value="Coast Guard">Coast Guard</option>
+                            <option value="National Guard">National Guard</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="edit-war-era" style="display: none;">
+                        <label for="edit-war-era-select">War/Era</label>
+                        <select id="edit-war-era-select">
+                            <option value="">Select era...</option>
+                            <option value="Revolutionary War">Revolutionary War</option>
+                            <option value="Civil War">Civil War</option>
+                            <option value="World War I">World War I</option>
+                            <option value="World War II">World War II</option>
+                            <option value="Korean War">Korean War</option>
+                            <option value="Vietnam War">Vietnam War</option>
+                            <option value="Gulf War">Gulf War</option>
+                            <option value="Iraq War">Iraq War</option>
+                            <option value="Afghanistan War">Afghanistan War</option>
+                            <option value="Peacetime">Peacetime Service</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-section">Cemetery Section</label>
+                        <input type="text" id="edit-section" placeholder="e.g., Section A, Row 5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-plot-number">Plot Number</label>
+                        <input type="text" id="edit-plot-number" placeholder="Plot number if available">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-latitude">GPS Coordinates</label>
+                        <div class="gps-input-group">
+                            <input type="number" id="edit-latitude" step="any" placeholder="Latitude" style="flex: 1;">
+                            <span class="gps-separator">,</span>
+                            <input type="number" id="edit-longitude" step="any" placeholder="Longitude" style="flex: 1;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-marker-condition">Marker Condition</label>
+                        <select id="edit-marker-condition">
+                            <option value="">Select condition...</option>
+                            <option value="excellent">Excellent</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="poor">Poor - Needs Repair</option>
+                            <option value="missing">Missing</option>
+                            <option value="damaged">Damaged</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-marker-type">Marker Type</label>
+                        <select id="edit-marker-type">
+                            <option value="">Select type...</option>
+                            <option value="headstone">Headstone</option>
+                            <option value="flat-marker">Flat Marker</option>
+                            <option value="monument">Monument</option>
+                            <option value="obelisk">Obelisk</option>
+                            <option value="mausoleum">Mausoleum</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-inscription">Inscription/Epitaph</label>
+                        <textarea id="edit-inscription" rows="4" placeholder="Any text or inscription on the marker"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-notes">Additional Notes</label>
+                        <textarea id="edit-notes" rows="3" placeholder="Any additional information or observations"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-image-url">Image URL</label>
+                        <input type="url" id="edit-image-url" placeholder="URL to memorial image">
+                        <small style="color: var(--text-light);">Direct image URL from Find a Grave or other source</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-findagrave-url">Find a Grave URL</label>
+                        <input type="url" id="edit-findagrave-url" placeholder="https://www.findagrave.com/memorial/...">
+                        <small style="color: var(--text-light);">Link to the Find a Grave memorial page</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-entered-by">Entered By <span class="required">*</span></label>
+                        <input type="text" id="edit-entered-by" required placeholder="Your name or initials">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-entry-date">Entry Date <span class="required">*</span></label>
+                        <input type="date" id="edit-entry-date" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Memorial Park Cemetery Restoration Project | JROTC Veterans List<br>Created by C/MSG Payton M. Goodger</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/data-entry.js"></script>
+    <script src="js/import-data.js"></script>
+    <script src="js/import-findagrave-data.js"></script>
+    <script src="js/admin-management.js"></script>
+</body>
+</html>

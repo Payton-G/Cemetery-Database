@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Memorial Park Cemetery</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="assets/images/jrotc-logo.png" alt="Moberly JROTC Logo" class="jrotc-logo">
+                <div class="header-text">
+                    <h1>Memorial Park Cemetery Database</h1>
+                    <p class="subtitle">Search Records</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="search.html" class="nav-link active">Search</a>
+            <a href="cemetery-map.html" class="nav-link">Map</a>
+        </nav>
+
+        <div class="admin-button-container top">
+            <a href="data-entry.html" class="admin-button">🔒 Administrative Access</a>
+        </div>
+
+        <main>
+            <section class="search-section">
+                <h2>Search Records</h2>
+                <p class="search-help">Enter search terms to find specific records. You can search by name, section, plot number, or any other field.</p>
+                
+                <form id="search-form" class="search-form">
+                    <div class="form-group">
+                        <label for="search-query">Search</label>
+                        <input type="text" id="search-query" name="searchQuery" placeholder="Enter name, section, plot number, etc.">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="search-veteran">Veteran Status</label>
+                            <select id="search-veteran" name="searchVeteran">
+                                <option value="">All</option>
+                                <option value="yes">Veterans Only</option>
+                                <option value="no">Non-Veterans</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-condition">Marker Condition</label>
+                            <select id="search-condition" name="searchCondition">
+                                <option value="">All Conditions</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                                <option value="poor">Poor - Needs Repair</option>
+                                <option value="missing">Missing</option>
+                                <option value="damaged">Damaged</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="button" id="clear-search" class="btn btn-secondary">Clear</button>
+                    </div>
+                </form>
+
+                <div id="search-results" class="search-results">
+                    <div id="results-count" class="results-count"></div>
+                    <div id="results-container" class="records-container">
+                        <!-- Search results will appear here -->
+                    </div>
+                    <div id="pagination-container" class="pagination-container" style="display: none;">
+                        <!-- Pagination controls will be loaded here -->
+                    </div>
+                    <div id="no-results" class="no-records" style="display: none;">
+                        <p>No records found matching your search criteria.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Memorial Park Cemetery Restoration Project | JROTC Veterans List<br>Created by C/MSG Payton M. Goodger</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
+

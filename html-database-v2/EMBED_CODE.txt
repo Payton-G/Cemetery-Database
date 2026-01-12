@@ -1,0 +1,82 @@
+================================================================================
+EMBED CODE FOR MEMORIAL PARK CEMETERY DATABASE
+================================================================================
+
+Replace "YOUR_WEBSITE_URL" with your actual website URL where the database is hosted.
+
+================================================================================
+BASIC EMBED CODE (Recommended - Full Database)
+================================================================================
+
+<iframe 
+    src="YOUR_WEBSITE_URL/index.html" 
+    width="100%" 
+    height="800px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+================================================================================
+SEARCH PAGE ONLY
+================================================================================
+
+<iframe 
+    src="YOUR_WEBSITE_URL/search.html" 
+    width="100%" 
+    height="700px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px;">
+</iframe>
+
+================================================================================
+MAP PAGE ONLY
+================================================================================
+
+<iframe 
+    src="YOUR_WEBSITE_URL/cemetery-map.html" 
+    width="100%" 
+    height="900px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px;">
+</iframe>
+
+================================================================================
+HOW TO USE IN GOOGLE SITES
+================================================================================
+
+1. Open your Google Site in edit mode
+2. Click "Insert" in the toolbar
+3. Select "Embed" → "Embed code"
+4. Paste one of the embed codes above (replace YOUR_WEBSITE_URL first!)
+5. Click "Insert"
+6. Adjust the size if needed by clicking on the embedded content
+
+================================================================================
+EXAMPLE WITH REAL URL
+================================================================================
+
+If your site is hosted at: https://example.com/cemetery/
+
+Then your embed code would be:
+
+<iframe 
+    src="https://example.com/cemetery/index.html" 
+    width="100%" 
+    height="800px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+================================================================================
+IMPORTANT NOTES
+================================================================================
+
+- Make sure all files are publicly accessible
+- Test the embed in a browser first to ensure it loads correctly
+- For mobile responsiveness, use width="100%" and adjust height as needed
+- The database uses localStorage, so data is stored in each user's browser
+- For shared data across users, implement a backend solution (Google Sheets, etc.)
+
+================================================================================

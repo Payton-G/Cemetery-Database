@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Code for Cemetery Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8b1a1a;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h1>📋 Embed Code for Memorial Park Cemetery Database</h1>
+        
+        <p>Use the embed code below to integrate the cemetery database into Google Sites or any other website that supports iframe embedding.</p>
+        
+        <div class="note">
+            <strong>⚠️ Important:</strong> Replace <code>YOUR_WEBSITE_URL</code> with the actual URL where you've hosted the database files.
+            <br>Example: <code>https://yoursite.github.io/html-database-v2/</code> or <code>https://yourdomain.com/cemetery-database/</code>
+        </div>
+
+        <h2>Basic Embed Code (Recommended)</h2>
+        <p>This code embeds the main index page with full functionality:</p>
+        <div class="code-block">
+&lt;iframe 
+    src="YOUR_WEBSITE_URL/index.html" 
+    width="100%" 
+    height="800px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+    allowfullscreen&gt;
+&lt;/iframe&gt;
+        </div>
+
+        <h2>Alternative: Embed Specific Pages</h2>
+        
+        <h3>Search Page Only</h3>
+        <div class="code-block">
+&lt;iframe 
+    src="YOUR_WEBSITE_URL/search.html" 
+    width="100%" 
+    height="700px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px;"&gt;
+&lt;/iframe&gt;
+        </div>
+
+        <h3>Map Page Only</h3>
+        <div class="code-block">
+&lt;iframe 
+    src="YOUR_WEBSITE_URL/cemetery-map.html" 
+    width="100%" 
+    height="900px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px;"&gt;
+&lt;/iframe&gt;
+        </div>
+
+        <h2>📝 How to Use in Google Sites</h2>
+        <ol>
+            <li>Open your Google Site in edit mode</li>
+            <li>Click <strong>"Insert"</strong> in the toolbar</li>
+            <li>Select <strong>"Embed"</strong> → <strong>"Embed code"</strong></li>
+            <li>Paste one of the embed codes above (replace YOUR_WEBSITE_URL first!)</li>
+            <li>Click <strong>"Insert"</strong></li>
+            <li>Adjust the size if needed by clicking on the embedded content</li>
+        </ol>
+
+        <div class="success">
+            <strong>✅ Tips:</strong>
+            <ul style="margin-top: 10px;">
+                <li>Make sure all files are publicly accessible</li>
+                <li>Test the embed in a browser first to ensure it loads correctly</li>
+                <li>For mobile responsiveness, use <code>width="100%"</code> and adjust height as needed</li>
+                <li>Consider using 900px-1000px height for the map page to show the full map</li>
+            </ul>
+        </div>
+
+        <h2>🔗 Example with Real URL</h2>
+        <p>If your site is hosted at <code>https://example.com/cemetery/</code>, your embed code would be:</p>
+        <div class="code-block">
+&lt;iframe 
+    src="https://example.com/cemetery/index.html" 
+    width="100%" 
+    height="800px" 
+    frameborder="0"
+    style="border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+    allowfullscreen&gt;
+&lt;/iframe&gt;
+        </div>
+
+        <div class="note">
+            <strong>📌 Remember:</strong> The database uses localStorage, so data is stored in each user's browser. 
+            For shared data across users, you'll need to implement a backend solution (Google Sheets, database, etc.).
+        </div>
+    </div>
+</body>
+</html>
